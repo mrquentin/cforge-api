@@ -1,1 +1,2 @@
-from .game_info import *
+from .games import *
+from .categories import *
