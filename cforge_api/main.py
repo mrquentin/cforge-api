@@ -1,23 +1,36 @@
-from datetime import datetime
 from pprint import pprint
 
-from marshmallow import Schema, fields
+from pydantic import BaseModel, HttpUrl
+from uplink import Consumer, returns, get
+
 from cforge_api.client import CForgeAPI
 
 
-class UserSchema(Schema):
-    name = fields.Str()
-    email = fields.Str()
+class Owner(BaseModel):
+    id: int
+    avatar_url: HttpUrl
+    organizations_url: HttpUrl
 
 
-class BlogSchema(Schema):
-    title = fields.Str()
-    author = fields.Nested(UserSchema)
+class Repo(BaseModel):
+    id: int
+    full_name: str
+    owner: Owner
+
+
+class Github(Consumer):
+    @returns.json()
+    @get("users/{username}/repos")
+    def get_repos(self, username) -> list[Repo]: pass
+
+    @returns.json()
+    @get("users/{username}/repos")
+    def get_repos_json(self, username): pass
+
 
 def run():
     api = CForgeAPI("$2a$10$t0XXH1pJ8ZvcGeZtBeQ0nulnjrAOy/OzZewuWqX2dxslbEdYDrP/6")
-    games = api.get_games()
-    pprint(games)
+    pprint(api.get_game_by_id(432))
 
 
 if __name__ == "__main__":
