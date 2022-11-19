@@ -1,37 +1,18 @@
 from pprint import pprint
-
-from pydantic import BaseModel, HttpUrl
-from uplink import Consumer, returns, get
-
 from cforge_api.client import CForgeAPI
 
-
-class Owner(BaseModel):
-    id: int
-    avatar_url: HttpUrl
-    organizations_url: HttpUrl
-
-
-class Repo(BaseModel):
-    id: int
-    full_name: str
-    owner: Owner
-
-
-class Github(Consumer):
-    @returns.json()
-    @get("users/{username}/repos")
-    def get_repos(self, username) -> list[Repo]: pass
-
-    @returns.json()
-    @get("users/{username}/repos")
-    def get_repos_json(self, username): pass
+from cforge_api.models import GetModsByIdsRequestBody
 
 
 def run():
+    # Minecraft id = 432
     api = CForgeAPI("$2a$10$t0XXH1pJ8ZvcGeZtBeQ0nulnjrAOy/OzZewuWqX2dxslbEdYDrP/6")
-    pprint(api.get_game_by_id(432))
+    # pprint(list(map(lambda x: x.name, api.search_mods(432, searchFilter="Vault").data)))
+    ids = {"modIds": [1, 2, 3]}
+    # pprint(api.get_mods_by_ids(ids))
+    pprint(api.get_games())
 
 
 if __name__ == "__main__":
     run()
+

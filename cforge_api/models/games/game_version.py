@@ -2,5 +2,5 @@ from pydantic import BaseModel
 
 
 class GameVersion(BaseModel):
-    type: int
-    versions: list[str]
+    type: int | None
+    versions: list[str] | None

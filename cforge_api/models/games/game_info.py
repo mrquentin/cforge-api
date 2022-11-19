@@ -1,11 +1,6 @@
 from datetime import datetime
-from pydantic import BaseModel, HttpUrl, validator
-
-
-class GameInfoAssets(BaseModel):
-    coverUrl: str | None
-    iconUrl: str | None
-    titleUrl: str | None
+from pydantic import BaseModel
+from .game_info_asset import GameInfoAssets
 
 
 class GameInfo(BaseModel):

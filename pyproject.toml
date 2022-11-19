@@ -1,12 +1,10 @@
 [tool.poetry]
-name = "cforgeapi"
+name = "cforge-api"
 version = "0.1.0"
 description = "An api client for curseforge API"
 authors = ["Quentin Levasseur <32539717+mrquentin@users.noreply.github.com>"]
 readme = "README.md"
-packages = [
-    { include = "cforge_api" },
-]
+packages = [{ include = "cforge_api"}]
 
 
 [tool.poetry.dependencies]
